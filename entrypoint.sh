@@ -19,6 +19,11 @@ chown \
 chown \
   --recursive \
   "${MEDIAGOBLIN_USER}:${MEDIAGOBLIN_GROUP}" "${MEDIAGOBLIN_APP_ROOT}/user_dev"
+if [ ! -L "${MEDIAGOBLIN_APP_ROOT}/mediagoblin/static" ]; then
+  rm -rf "${MEDIAGOBLIN_APP_ROOT}/user_dev/static"
+  mv "${MEDIAGOBLIN_APP_ROOT}/mediagoblin/static" "${MEDIAGOBLIN_APP_ROOT}/user_dev/"
+  ln -s "../user_dev/static" "${MEDIAGOBLIN_APP_ROOT}/mediagoblin/static"
+fi
 
 su "$MEDIAGOBLIN_USER" -c './init-mediagoblin.sh'
 if [ $# -eq 1 ]; then
