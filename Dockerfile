@@ -164,5 +164,4 @@ ENV MEDIAGOBLIN_HOME_DIR "$MEDIAGOBLIN_HOME_DIR"
 COPY entrypoint.sh entrypoint.sh
 COPY entrypoint-celery.sh entrypoint-celery.sh
 COPY init-mediagoblin.sh init-mediagoblin.sh
-COPY user-dev-workaround.sh user-dev-workaround.sh
 CMD ["./entrypoint.sh"]

@@ -17,7 +17,6 @@ chown \
   --recursive \
   "${MEDIAGOBLIN_USER}:${MEDIAGOBLIN_GROUP}" "$MEDIAGOBLIN_HOME_DIR"
 
-su "$MEDIAGOBLIN_USER" -c './user-dev-workaround.sh'
 su "$MEDIAGOBLIN_USER" -c './init-mediagoblin.sh'
 if [ $# -eq 1 ]; then
   su "$MEDIAGOBLIN_USER" -c "$1"
