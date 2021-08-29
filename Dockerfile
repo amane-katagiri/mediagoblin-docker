@@ -35,12 +35,14 @@ RUN apt-get install --yes \
 
 # Install make and runtime dependencies.
 RUN apt-get install --yes \
+      postgresql \
       python3-alembic \
       python3-celery \
       python3-jsonschema \
       python3-kombu \
       python3-lxml \
       python3-migrate  \
+      python3-psycopg2 \
       python3-py \
       python3-pytest \
       python3-pytest-xdist \
