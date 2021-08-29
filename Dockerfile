@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-FROM debian:buster-20200224
+FROM debian:buster-slim
 
 # Set locale.
 ENV LANG C.UTF-8
