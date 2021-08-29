@@ -44,8 +44,10 @@ RUN apt-get install --yes \
       python3-py \
       python3-pytest \
       python3-pytest-xdist \
+      python3-snowballstemmer \
       python3-six \
       python3-sphinx \
+      python3-sphinxcontrib.websupport \
       python3-webtest
 
 # Install audio dependencies.
@@ -66,6 +68,27 @@ RUN apt-get install --yes \
       gir1.2-gstreamer-1.0 \
       gstreamer1.0-tools \
       python3-gi
+
+# Install raw image dependencies.
+#
+# Currently (March 2021), python3-py3exiv2 is only available in Debian Sid, so
+# we need to install py3exiv2 from PyPI (later on in this Dockerfile). These are
+# the build depedencies for py3exiv2.
+#
+RUN apt-get install -y \
+     libexiv2-dev \
+     libboost-python-dev
+
+# Install document (PDF-only) dependencies.
+# TODO: Check that PDF tests aren't skipped.
+RUN apt-get install -y \
+     poppler-utils
+
+# Install LDAP depedencies.
+RUN apt-get install -y python3-ldap
+
+# Install OpenID dependencies.
+RUN apt-get install -y python3-openid
 
 # Information for MediaGoblin system account.
 ARG MEDIAGOBLIN_USER="mediagoblin"
@@ -108,13 +131,16 @@ RUN set -xe && \
 # Workaround for dependencies that make fails to install.
 RUN set -xe && \
     ./bin/python setup.py develop --upgrade && \
-    ./bin/pip install flup==1.0.3
+    ./bin/pip install flup==1.0.3 py3exiv2
 
 RUN set -xe && \
     chgrp \
       --no-dereference \
       --recursive \
       "$MEDIAGOBLIN_GROUP" "$MEDIAGOBLIN_HOME_DIR"
+
+# Run the tests.
+RUN ./bin/python -m pytest -rs ./mediagoblin/tests --boxed
 
 # Clean up.
 USER root
