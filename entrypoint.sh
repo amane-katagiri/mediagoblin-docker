@@ -19,4 +19,8 @@ chown \
 
 su "$MEDIAGOBLIN_USER" -c './user-dev-workaround.sh'
 su "$MEDIAGOBLIN_USER" -c './init-mediagoblin.sh'
-su "$MEDIAGOBLIN_USER" -c './lazyserver.sh --server-name=broadcast'
+if [ $# -eq 1 ]; then
+  su "$MEDIAGOBLIN_USER" -c "$1"
+else
+  su "$MEDIAGOBLIN_USER" -c './lazyserver.sh --server-name=broadcast'
+fi
