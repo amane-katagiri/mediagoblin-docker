@@ -16,6 +16,9 @@ chown \
   --no-dereference \
   --recursive \
   "${MEDIAGOBLIN_USER}:${MEDIAGOBLIN_GROUP}" "$MEDIAGOBLIN_HOME_DIR"
+chown \
+  --recursive \
+  "${MEDIAGOBLIN_USER}:${MEDIAGOBLIN_GROUP}" "${MEDIAGOBLIN_APP_ROOT}/user_dev"
 
 su "$MEDIAGOBLIN_USER" -c './init-mediagoblin.sh'
 if [ $# -eq 1 ]; then
