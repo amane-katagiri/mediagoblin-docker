@@ -118,14 +118,11 @@ RUN set -xe && \
 USER "$MEDIAGOBLIN_USER"
 WORKDIR "$APP_ROOT"
 
-ARG MEDIAGOBLIN_REPO="https://github.com/mtlynch/mediagoblin.git"
-ARG MEDIAGOBLIN_BRANCH="2020-03-26"
+ARG MEDIAGOBLIN_REPO="https://git.savannah.gnu.org/git/mediagoblin.git"
+ARG MEDIAGOBLIN_TAG="v0.11.0"
 
 RUN set -xe && \
-    git clone "$MEDIAGOBLIN_REPO" . && \
-    git checkout "$MEDIAGOBLIN_BRANCH" && \
-    git submodule sync && \
-    git submodule update --force --init --recursive && \
+    git clone --depth=1 "$MEDIAGOBLIN_REPO" --branch "$MEDIAGOBLIN_TAG" --recursive . && \
     ./bootstrap.sh && \
     VIRTUALENV_FLAGS='--system-site-packages' ./configure --with-python3 && \
     make
