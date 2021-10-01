@@ -119,7 +119,7 @@ USER "$MEDIAGOBLIN_USER"
 WORKDIR "$APP_ROOT"
 
 ARG MEDIAGOBLIN_REPO="https://git.savannah.gnu.org/git/mediagoblin.git"
-ARG MEDIAGOBLIN_TAG="v0.11.0"
+ARG MEDIAGOBLIN_TAG="v0.12.0"
 
 RUN set -xe && \
     git clone --depth=1 "$MEDIAGOBLIN_REPO" --branch "$MEDIAGOBLIN_TAG" --recursive . && \
